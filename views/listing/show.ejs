@@ -1,0 +1,187 @@
+<% layout("layout/boilerplate") %>
+
+<div class="headbox">
+      <h5><b><%= listing.title %></b></h5>
+</div>
+<div class="all">
+
+  <div class="card">
+    
+    <img src="<%= listing.image.url %>" alt="image">
+
+    <div class="card-body">
+            <p> Owned by: <%= listing.owner.username %></p>
+
+      <p><%= listing.country %></p>
+      <p><%= listing.location %></p>
+      <p>₹<%= listing.price.toLocaleString("en-IN") %></p>
+    </div>
+
+  </div>
+
+
+
+  <%if(currentuser && currentuser._id.equals(listing.owner._id)){ %>
+
+
+   <div class="editt">
+    <a href="/listing/<%=listing._id%>/edit">
+    Edit
+  </a>
+  </div>
+
+
+  <!-- DELETE BUTTON -->
+  <form method="POST" action="/listing/<%=listing._id%>?_method=DELETE" >
+    <div class="button" >
+    <button type="submit" class="btn btn-dark">Delete</button>
+
+    </div>
+  </form>
+    <% } %>
+    <h4></h4>
+<div id="map"></div>
+<script>
+  // Fallback to Greater Noida coordinates if fields are empty or null
+  const lat="<%= listing.latitude ? listing.latitude : 28.4744 %>";
+  const lng = "<%= listing.longitude ? listing.longitude : 77.5040 %>";
+
+  console.log("Rendering map at coordinates:", lat, lng);
+
+  // Initialize the map layout
+  const map = L.map('map').setView([lat, lng], 14);
+
+  // Load the OpenStreetMap tiles
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Drop a pinpoint marker
+  L.marker([lat, lng])
+      .addTo(map)
+      .bindPopup("<b><%= listing.location %></b><br>Exact location provided after booking.")
+      .openPopup();
+
+  // Add a stylish visual radius area circle around the location
+  L.circle([lat, lng], {
+      color: '#fe424d',     // Matches standard branding accents
+      fillColor: '#fe424d',
+      fillOpacity: 0.15,
+      radius: 600           // 600-meter accuracy radius
+  }).addTo(map);
+</script>
+<!-- //current user in midddleware.js its contains the middleware.js -->
+
+<%if(currentuser){%>
+
+  <div>
+    <hr>
+    
+    <h4>
+      Leave a reviews
+    </h4>
+
+    <form action="/listing/<%= listing._id %>/reviews"  method="POST" novalidate class="needs-validation" >
+      <!-- //rating range  -->
+      <!-- <div>
+         <label for="range" >Rating</label>
+      <input type="range" min="1" max="5" id="range"  class="form-range" name="reviews[rating]">
+      </div> -->
+
+      <!-- //rating  -->
+             <div>
+         <label for="range" >Rating</label>
+
+      <fieldset class="starability-slot">
+  <input type="radio" id="no-rate" class="input-no-rate" name="reviews[rating]" value="0" checked aria-label="No rating." />
+  <input type="radio" id="first-rate1" name="reviews[rating]" value="1" />
+  <label for="first-rate1" title="Terrible">1 star</label>
+  <input type="radio" id="first-rate2" name="reviews[rating]" value="2" />
+  <label for="first-rate2" title="Not good">2 stars</label>
+  <input type="radio" id="first-rate3" name="reviews[rating]" value="3" />
+  <label for="first-rate3" title="Average">3 stars</label>
+  <input type="radio" id="first-rate4" name="reviews[rating]" value="4" />
+  <label for="first-rate4" title="Very good">4 stars</label>
+  <input type="radio" id="first-rate5" name="reviews[rating]" value="5" />
+  <label for="first-rate5" title="Amazing">5 stars</label>
+</fieldset>
+      </div>
+
+
+     <div>
+      <label for="comment" class="form-label">comment</label>
+      <textarea  id="comment" 
+      cols="5" 
+      rows="5" 
+       class="form-control"
+       name="reviews[comment]"  
+      required ></textarea>
+      <div class="invalid-feedback">please submit some comments</div>
+     </div>
+     <br>
+<button type="submit" class="btn btn-dark">Submit</button>
+
+    </form>
+<%}%>
+
+
+    <hr>
+    <h4>All Reviews</h4>
+<% for(let review of listing.reviews) { %>
+
+  <div style="
+    border:1px solid #ddd;
+    padding:6px 8px;
+    margin-bottom:6px;
+    border-radius:6px;
+    background-color:#f8f9fa;
+    font-size:13px;
+    width:200px;
+    
+  ">
+<p style="margin:2px 0;">
+      <b>Author:</b> <%= review.author.username %>
+    </p>
+
+
+    <p style="margin:2px 0;">
+      <b>Review:</b> <%= review.comment %>
+    </p>
+
+    <!-- <p style="margin:2px 0;">
+      <b>Rating:</b> ⭐
+    </p> -->
+    <p class="starability-result card-text" data-rating="<%= review.rating %>">
+  
+  </p>
+    <form method="POST" action="/listing/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+<% if(currentuser && review.author._id.equals(currentuser._id)) { %>
+<!-- //button wont show if the author is not logged in  -->
+      <button type="submit" style="
+        font-size:11px;
+        padding:2px 6px;
+        margin-top:4px;
+        background:red;
+        color:white;
+        border:none;
+        border-radius:3px;
+        cursor:pointer;
+        width:auto;
+      ">
+        delete
+      </button>
+<%}%>
+    </form>
+
+  </div>
+<% } %>
+
+
+</div>
+</div>
+
+</div>
+  </div>
+   </div>
+
+

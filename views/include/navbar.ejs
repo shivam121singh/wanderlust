@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom py-2 sticky-top">
+  <div class="container">
+    <a class="navbar-brand d-inline-flex align-items-center m-0 pe-3 fs-4" href="/listing">
+      <i class="fa-regular fa-compass compass"></i>
+    </a>
+    <button class="navbar-toggler" type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <div class="navbar-nav d-flex align-items-lg-center gap-1 fw-medium pt-2 pt-lg-0">
+        <a class="nav-link py-2 py-lg-1" href="/listing">Explore</a>
+      </div>
+      <div class="navbar-nav ms-auto d-flex align-items-lg-center gap-1 fw-medium border-top border-lg-0 mt-2 mt-lg-0 pt-2 pt-lg-0">
+        <a class="nav-link py-2 py-lg-1" href="/listing/new">Add Listing</a>
+        <% if(!currentuser){ %>
+          <a class="nav-link py-2 py-lg-1" href="/signup"><b>Signup</b></a>
+          <a class="nav-link py-2 py-lg-1" href="/login">Login</a>
+        <% } else { %>
+          <a class="nav-link py-2 py-lg-1" href="/logout">Logout</a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</nav>

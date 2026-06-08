@@ -1,0 +1,319 @@
+/* ===== Core Application Configurations ===== */
+:root {
+    --brand-color: #fe424d;
+    --brand-dark: #d92b34;
+    --text-main: #222222;
+    --text-muted: #717171;
+    --bg-light: #f7f7f7;
+}
+
+body {
+    background-color: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--text-main);
+}
+
+/* ===== Navbar Enhancements ===== */
+.navbar {
+    box-shadow: 0 1px 12px rgba(0,0,0,0.05);
+    background-color: #ffffff !important;
+}
+
+.nav-link {
+    color: var(--text-main) !important;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.nav-link:hover {
+    color: var(--brand-color) !important;
+}
+
+.compass {
+    color: var(--brand-color);
+    font-size: 2.2rem;
+    transition: transform 0.3s ease;
+}
+
+.compass:hover {
+    transform: rotate(15deg);
+}
+
+/* ===== Clean Footer Architecture ===== */
+footer {
+    background-color: var(--bg-light);
+    border-top: 1px solid #918484;
+    padding: 2rem 0;
+    margin-top: auto; /* <--- THIS IS THE MAGIC BULLET */
+}
+
+.f-info {
+    display: flex;
+    flex-direction: column;  
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.f-info-links a { 
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin: 0 8px;
+}
+
+.f-info-links a:hover {
+    text-decoration: underline;
+    color: var(--text-main);
+}
+
+.f-info-social i {
+    font-size: 1.4rem;
+    margin: 0 10px;
+    color: var(--text-main);
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.f-info-social i:hover {
+    color: var(--brand-color);
+}
+
+.f-info-text {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* ===== Explore Page Grid & Cards (index.ejs) ===== */
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 1400px;
+    gap: 24px;
+    padding: 20px 0;
+    margin: 0 auto;
+}
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card-link:hover {
+    color: inherit;
+}
+
+/* This fixes the disappearing box sizes */
+.card {
+    width: 100%;
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: white;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: 100%; /* Allows flex content to settle comfortably */
+}
+
+.card:hover {
+    transform: translateY(-4px);
+}
+
+.card img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.card-body {
+    padding: 12px 4px;
+}
+
+.card-body h5 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--text-main);
+}
+
+.card-body p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.card-body .price-text {
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+/* ===== Listing Detail Page Stylings (show.ejs) ===== */
+.show-card {
+    max-width: 750px;
+    margin: 0 auto;
+    border: none;
+}
+
+.show-img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    border-radius: 18px;
+}
+
+.owner-badge {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.price-tag {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0.5rem 0;
+}
+
+#map {
+    height: 400px;
+    width: 100%;
+    margin: 20px 0;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* ===== Custom Forms Container Setup ===== */
+.form-wrapper {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.03);
+}
+
+.form-control:focus {
+    border-color: var(--brand-color);
+    box-shadow: 0 0 0 0.2rem rgba(254, 66, 77, 0.25);
+}
+
+.btn-brand {
+    background-color: var(--brand-color);
+    color: white;
+    font-weight: 600;
+    padding: 0.6rem 1.5rem;
+    border: none;
+    transition: background-color 0.2s;
+}
+
+.btn-brand:hover {
+    background-color: var(--brand-dark);
+    color: white;
+}
+
+/* ===== Review Cards Grid Architecture ===== */
+.review-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.review-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 1rem;
+    background-color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+}
+
+/* ===== Responsive Breakpoints ===== */
+
+/* Desktop / Laptop */
+@media (max-width: 1200px) {
+    .card-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Tablet */
+@media (max-width: 992px) {
+    .card-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+    .card-container {
+        grid-template-columns: 1fr;
+    }
+    .card img {
+        height: 280px; /* Looks better full-width on mobile */
+    }
+}
+
+/* ===== Filter Navbar (The scrollable icons row) ===== */
+.filter-navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    padding: 0.5rem 0;
+    margin: 1rem 0;
+    gap: 1.5rem;
+}
+
+.filters {
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    flex-grow: 1;
+    gap: 2rem;
+}
+
+.filters::-webkit-scrollbar {
+    display: none;
+}
+
+.filter {
+    text-align: center;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: all 0.2s ease-in-out;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 8px;
+}
+
+.filter:hover {
+    opacity: 1;
+    border-bottom-color: var(--text-main);
+}
+
+.filter i {
+    font-size: 1.4rem;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.filter p {
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+.tax-toggle {
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .filter-navbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+    }
+}
